@@ -7,17 +7,11 @@ public:
     A(){
         cout << "Constructor of class A" << endl ;
     }
-    ~A() {
-        cout << "Destructor A" << endl;
-    }
 };
 class B{
 public:
     B(){
       cout << "Constructor of class B" << endl;
-    }
-    ~B() {
-        cout << "Destructor B" << endl;
     }
 };
 class C{
@@ -25,17 +19,11 @@ public:
     C(){
       cout << "Constructor of class C" << endl;
     }
-    ~C() {
-        cout << "Destructor C" << endl;
-    }
 };
 class D{
 public:
     D(){
       cout << "Constructor of class D" << endl;
-    }
-    ~D() {
-        cout << "Destructor D" << endl;
     }
 };
 class E{
@@ -43,17 +31,11 @@ public:
     E(){
       cout << "Constructor of class E" << endl;
     }
-    ~E() {
-        cout << "Destructor E" << endl;
-    }
 };
 class F{
 public:
     F(){
       cout << "Constructor of class F" << endl;
-    }
-    ~F() {
-        cout << "Destructor F" << endl;
     }
 };
 class G: public A, public B, public C{
@@ -70,5 +52,5 @@ void main (){
 	{
 		G g;//constructor, destructor 가 호출되는 순서를 이해
 	}
-    //system("pause");
+    system("pause");
 }

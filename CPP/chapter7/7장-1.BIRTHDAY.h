@@ -1,7 +1,7 @@
 //7장-1.BIRTHDAY.h 
 #include "7장-1-1.DATE3.h" 
 
-class BirthDate : public Date{   // Date로부터 상속받았다.
+class BirthDate : public Date{
     //새로운 private 데이터들은 이곳에서 선언될 수 있다
 public:
     BirthDate (int m, int d, int y) :

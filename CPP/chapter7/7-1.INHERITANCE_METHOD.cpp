@@ -58,7 +58,7 @@ public:
 //어떤 상속을 받은 class이건, private member 변수는 절대 건드릴 수 없으며, 
 //public, protected 상속 경우에도 A의 private member는 접근 못함
 void main(){
-    A a;  //A class의 객체인 a 생성
+    A a;
     //a 객체는 안에 존재하는 member 변수들이지만
     //private와 protected member 변수는 class 외부에서 건드릴 수 없다.
     a.a_public = 2;
@@ -69,7 +69,7 @@ void main(){
     cout <<"a_public = " <<a.a_public << endl;
     
     //주석 1
-    B b;  // B class 객체인 b 생성
+    B b;
     //A에 public 상속을 받은 b객체는
     //역시 마찬가지로 a객체와 같은 반응을 보인다.
     b.a_public = 4;
@@ -80,13 +80,13 @@ void main(){
     //b.a_protected = 2;	//안된다. 
     //*/
     //주석 2
-    C c;  // C class 객체인 c 생성
+    C c;
     //A에 protected 상속을 받은 c객체,
     //class 외부에서는 class A의 public member 변수 조차 사용할 수 없어진 것을 알 수 있다.
     //c.a_public = 5;
     //cout <<"a_public = " <<c.a_public << endl;
-    c.SetData();  // 이걸로 값은 바뀌었어도 main에서 출력불가능
-    //cout <<"a_public = " <<c.a_public << endl; //외부에서 protected 접근 불가능
+    c.SetData();
+    //cout <<"a_public = " <<c.a_public << endl;
     //c.a_private = 1;	//안된다.
     //c.a_protected = 2;	//안된다.
     //*/
@@ -96,8 +96,8 @@ void main(){
     //마찬가지로 모든 member변수를 사용할 수 없다.
     //d.a_public = 6;
    // cout <<"a_public = " <<d.a_public << endl;
-    d.SetData();  // d의 멤버 함수를 통해 접근가능하지만 main에서 출력하려고 접근하는 것은 불가능
-    //cout <<"a_public = " <<d.a_public << endl;  //d.a_private과 같다.
+    d.SetData();
+    //cout <<"a_public = " <<d.a_public << endl;
     //d.a_private = 1;		//안된다.
     //d.a_protected = 2;	//안된다.
     d.callModifyData(); //class A의 public함수 ModifyData를 이용 변경

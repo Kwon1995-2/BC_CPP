@@ -44,7 +44,7 @@ void Date :: PrintLeap (){
     if ( LeapYear() ) cout << " is a leap-year";
     else cout << " is not a leap-year";
 }
-int BirthDate :: Age (Date d){   //call by value
+int BirthDate :: Age (Date d){
     Date birthday (Month (), Day (), d.Year ()); 
     /*
     int newday = day;

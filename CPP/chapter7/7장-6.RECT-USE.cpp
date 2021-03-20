@@ -28,7 +28,6 @@ void main (){
 	cout<<"*r = "<<*r;
     Square squ (8, 12, 18);
 	cout<<"squ = "<<squ;
-    cout << "Square perimeter is " << squ.Perimeter () << endl;  
-	delete r;  // new -> delete 해줘야 함(메모리 반환)
+    cout << "Square perimeter is " << squ.Perimeter () << endl;
 	system("pause");
 }

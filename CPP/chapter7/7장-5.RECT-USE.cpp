@@ -8,7 +8,6 @@ void main(){
     cout << rect << endl;    
     //직사각형의 크기를 두배로 변경한다
     rect.Scale (2);
-    //rect.Moves(100, 100);
     cout << "The rectangle has doubled" << endl;
     cout << rect << endl;    
     //정사각형을 정의하는 예제

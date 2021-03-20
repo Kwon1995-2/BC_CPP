@@ -16,23 +16,21 @@ public:
 	}
 };
 //class B : protected A{
-class B : public A {   // protected->protected, public->public
+class B : public A {
 private:
     int b1;
 protected:
     int b2;
-	
 public:
-	int b3;
+    int b3;
 	B(int i = 0, int j = 0, int k = 0): A(i,j,k) {b1 = i; b2 = j; b3 = k;}
-	// B {A()}; -> A것을 갖다 쓰겠다.
 	void show() {
 		A::show();//code reuse 사용예
 		cout<<"B::show()->b1 ="<<b1<<", b2 = "<<b2<<", b3 = "<<b3<<endl;
 	}
 };
-class C: protected B{  // (B의) protected->protected, public->protected
-private:				// (A것은 어떻게 상속되는 것인가??)
+class C: protected B{
+private:
     int c1;
 protected:
     int c2;
@@ -63,10 +61,10 @@ void main() {
 	A ax(1,2,3);
 	cout<<"ax ::"<<endl;
 	ax.show();
-	B bx(4,5,6);  //B->A
+	B bx(4,5,6);
 	cout <<"bx = ::"<<endl;
-	bx.show();  
-	C cx(7,8,9);  //C->B->A
+	bx.show();
+	C cx(7,8,9);
 	cout<<"cx = ::"<<endl;
 	cx.show();
 	ax = bx;//protected로 상속시에 변수 치환이 안됨
