@@ -31,7 +31,7 @@ void main (){
 	s = t;
     pState1 = new StateCode ('C', 'A');
     pState2 = new TwoChars ('H', 'I');
-	TwoChars *tx = pState1; //pointer 변수를 넣어서 강제로 할당 가능 -> 시스템 불안정
+	TwoChars *tx = pState1;
     pState2 = pState1; // error !
     pState1 = pState2; // error !
 	system("pause");

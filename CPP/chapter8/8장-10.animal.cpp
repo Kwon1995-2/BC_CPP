@@ -7,9 +7,6 @@ Animal :: Animal (Point p): position (p)
 void Animal :: Speak (){
     cout << "Animal::The animal is making his verse" << endl;
 }
-void Animal::Speak2() {
-    cout << "My Name is " << name << endl;
-}
 void Animal :: JumpBy (int x, int y){
     position += Point (x,y);
 }

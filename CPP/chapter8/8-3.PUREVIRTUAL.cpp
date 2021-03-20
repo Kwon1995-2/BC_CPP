@@ -67,10 +67,10 @@ public:
         cout << "Square의 Colorl(int c) : " << color << endl;
         return color;
     }//*/
-	void Moves(int delta_x, int delta_y) {
-		cout << "Square:: Moves() is called" << endl;
-		Polygon::Moves(delta_x, delta_y);
-	}
+    void Moves(int delta_x, int delta_y) {
+        cout << "Square:: Moves() is called" << endl;
+        Polygon::Moves(delta_x, delta_y);
+    }
 private:
     int color;
 };
@@ -79,7 +79,7 @@ void main(){
 
     ///* 주석1
     //Polygon p1;
-    //Polygon *p1 = new Polygon(); 
+    //Polygon *p1 = new Polygon(); // 순수가상클래스는 인스턴스를 만들 수 없음.
     Polygon *p2 = new Rectangle(); 
     cout << endl << "------ Polygon *p2 = new Rectangle() ------"           << endl;
     p2->Creator();

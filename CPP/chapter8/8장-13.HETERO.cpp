@@ -6,8 +6,8 @@
 #include "8장-11.cow_dog.h"
 using namespace std;
 void main(){
-    Animal* mixedFlock[10];	  //이름출력은 같은 함수
-    mixedFlock[0] = new Cow("Tom");  //character pointer
+    Animal* mixedFlock[10];	  
+    mixedFlock[0] = new Cow("Tom");
     mixedFlock[1] = new Dog("Thomas");
     mixedFlock[2] = new Dog("Ashley");
     mixedFlock[3] = new Dog("Ryan");
@@ -17,6 +17,6 @@ void main(){
     mixedFlock[7] = new Cow("William");
     mixedFlock[8] = new Animal("Sophie");
     mixedFlock[9] = new Dog("Jessica");
-    for(int i=0; i< 10;i++) mixedFlock[i]->Speak();  //Speak()에서 출력
-    //system("pause");
+    for(int i=0; i< 10;i++) mixedFlock[i]->Speak();
+    system("pause");
 }

@@ -10,7 +10,7 @@ public:
     { }
 };
 //class StateCode : public TwoChars {
-class StateCode : protected TwoChars {  //publicÀÌ¸é ¹Ø¿¡ ¿À·ù ¾È ¶ä
+class StateCode : protected TwoChars {
 public:
     StateCode (char f, char s) : TwoChars (f, s)
     { }
@@ -23,7 +23,7 @@ void main(){
     pState2 = new TwoChars ('H', 'I');
 
     pState2 = pState1;
-    pState1 = pState2; 
+//    pState1 = pState2; 
     pState2 = new StateCode ('A', 'R');
 	system("pause");
 }

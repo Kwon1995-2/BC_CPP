@@ -3,12 +3,12 @@
 using namespace std;
 
 void main(){
-    struct{   //컴파일러가 임의로 이름 할당
+    struct{
         char  first ;
         char  second ;
     } state1 ;
     
-    struct{  //컴파일러가 임의로 이름 할당
+    struct{
         char  first ;
         char  second ;
     } state2 ;

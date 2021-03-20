@@ -15,10 +15,10 @@ void RunSpeaking (Animal& a, int nSteps){
 }
 
 void main (){
-    Cow cow (Point (20, 10));  
+    Cow cow (Point (20, 10));
     Dog dog (Point (10, 20));
 
-    RunSpeaking (cow, 5); //Animal class 상속받은 Cow가 인자로 들어감
+    RunSpeaking (cow, 5);
     RunSpeaking (dog, 5);
 	system("pause");
 }

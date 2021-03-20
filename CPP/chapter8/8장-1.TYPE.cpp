@@ -7,8 +7,8 @@ void main (){
         char  second;
     } twoChars;
 
-    twoChars state1;  //twoChars 타입의 객체 선언
-    twoChars state2;  //twoChars 타입의 객체 선언
+    twoChars state1;
+    twoChars state2;
 
     state1.first = 'M';
     state1.second = 'N';

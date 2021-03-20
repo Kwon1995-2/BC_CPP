@@ -1,19 +1,19 @@
 // 8장-6.FOREIGN.CPP   8.2 동적 Binding의 소개   
 #include <iostream>
 using namespace std;
-class Person{   //최상위 부모클래스
+class Person{
 protected:
     char * name;
 public:
     Person (char* n) : name (n)
     { }
-    virtual void Print (){
-	//void Print() {
+//    virtual void Print (){
+	void Print() {
         cout << "Person::내 이름은 " << name << endl;
     }
 };
 
-class Foreigner : public Person{   //자식클래스 - virtual이든 아니든 상관없음
+class Foreigner : public Person{
 public:
     Foreigner (char* n) : Person (n)
     { }    
@@ -25,6 +25,7 @@ public:
 void main(){
     Person * man;
     Person * woman;
+//    Foreigner* woman;
 
     man = new Person ("John");
     woman = new Foreigner ("Paola");
