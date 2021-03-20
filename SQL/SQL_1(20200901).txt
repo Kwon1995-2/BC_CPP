@@ -1,0 +1,119 @@
+#20200901
+use sampledb;
+select year, mon, count(*)
+from (select year(order_date) as year, month(order_date) as mon
+	from orders
+    group by year, mon
+    order by year, mon) as ym, orders
+where ym.year = year(orders.order_date) 
+and ym.mon = month(orders.order_date) #하나의 테이블인 것처럼 사용
+group by year, mon
+order by year, mon;
+
+select year(order_date) as year, month(order_date) as mon, count(*)
+from orders
+group by year, mon
+order by year, mon;
+
+#select cust_name, year(order_date) as year, month(order_date) as mon#, count(*) 
+select distinct month(order_date) as mon#, count(*)
+from orders, customers
+where orders.cust_id = customers.cust_id;
+#group by orders.cust_id, year, mon
+#order by orders.cust_id, year, mon;
+
+#고급 조인
+#'Jim Jones'가 일하는 회사의 모든 고객 담당자에게 메일을 보낸다.
+select cust_id, cust_name, cust_email
+from customers
+where cust_name = (select cust_name from customers where cust_contact = 'Jim Jones');
+
+#select c1.cust_id, c1.cust_name, c1.cust_contact c1, c2.cust_contact c2
+select *
+from customers c1, customers c2
+where c1.cust_name = c2.cust_name
+and c2.cust_contact = 'Jim Jones';
+
+select *
+from customers
+limit 2;
+#연구 필요
+select c1.cust_id, c1.cust_name, c1.cust_contact c1, c2.cust_contact c2
+from customers c1, customers c2
+where c1.cust_name = c2.cust_name
+#and 
+and c2.cust_contact = 'Jim Jones';
+
+select customers.cust_id, orders.order_num
+from customers, orders
+where customers.cust_id=orders.cust_id;
+
+select customers.cust_id, orders.order_num
+from customers left outer join orders #left join 해도 기능함
+on customers.cust_id=orders.cust_id;
+
+select customers.cust_id, orders.order_num
+from customers left outer join orders #left join 해도 기능함
+on customers.cust_id=orders.cust_id
+where order_num >= 20006;
+
+select customers.cust_id, orders.order_num
+from orders right outer join customers   #left join 해도 기능함
+on customers.cust_id=orders.cust_id;
+
+select cust_name, cust_contact, cust_email
+from customers
+where cust_state in ('IL','IN','MI')
+union all
+select cust_name, cust_contact, cust_email
+from customers
+where cust_name = 'Fun4All';
+
+select cust_name, cust_contact, cust_email
+from customers
+where cust_state in ('IL','IN','MI')
+union 
+select cust_name, cust_contact, cust_email
+from customers
+where cust_name = 'Fun4All';
+
+select cust_name, cust_contact, cust_email
+from customers
+where cust_state in ('IL','IN', 'MI')
+or cust_name = 'Fun4All';
+
+select cust_name, cust_contact, cust_email
+from customers
+where cust_state in ('IL','IN','MI')
+union all
+select cust_name, cust_contact, cust_email
+from customers
+where cust_name = 'Fun4All'
+order by cust_name, cust_contact; #전체에 order by가 붙는다.
+
+create table CustomersNew
+(
+	cust_id char(10) primary key,
+    cust_name char(50) not null,
+    cust_address char(50) null,
+    cust_city char(50) null,
+    cust_state char(5) null,
+    cust_zip char(10) null,
+    cust_country char(50) null default 'USA',
+    cust_contact char(50) null,
+    cust_email char(255) null,
+    cust_first timestamp null default current_timestamp
+    #primary key(cust_id)
+);
+
+alter table customersnew
+change cust_first cust_firstmeeting timestamp;
+
+desc customersnew;
+
+alter table customersnew
+modify cust_firstmeeting timestamp
+null default current_timestamp;
+
+alter table customersnew rename custnew;
+desc custnew;  

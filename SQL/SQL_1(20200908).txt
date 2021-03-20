@@ -1,0 +1,138 @@
+file4
+#20200908
+use sampledb;
+drop table if exists custnew;
+create table custnew
+(
+	cust_id char(10) not null,
+    cust_name char(50) not null,
+    cust_address char(50) null,
+    cust_city char(50) null,
+    cust_state char(5) null,
+    cust_zip char(10) null,
+    cust_county char(50) null default 'usa',
+    cust_contact char(50) null,
+    cust_email char(255) null,
+    cust_first timestamp null default current_timestamp,
+    primary key(cust_id)
+);
+alter table custnew change cust_county cust_country char(50)  null default 'usa';
+insert into custnew
+values('1000000007','Toy Land', '123 Any Street', 'New York', 'NY', '1111', 'USA',null,null,null);
+select * from custnew;
+insert into custnew(cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip
+, cust_country, cust_contact, cust_email, cust_first)
+values('1000000008','Toy Land', '123 Any Street', 'New York', 'NY', '1111', 'USA',null,null,null);
+
+insert into custnew(cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country)
+values('1000000009','Toy Land','123 Any Street','New York', 'NY','11111', 'USA');
+
+insert into custnew (cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip
+, cust_country, cust_contact, cust_email)
+select cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip
+, cust_country, cust_contact, cust_email
+from customers;
+select * from custnew;
+
+select * from custnew where cust_id = '1000000009';
+update custnew
+set cust_contact='HongKilDong', cust_email = 'kim@pnu.ac.kr'
+where cust_id='1000000009';#보통 key값이 들어간다.
+#조건에 맞는 데이터만 삭제해라 // 함부로 쓰면 안되는 쿼리
+delete from custnew
+where cust_id='1000000009';
+
+#stored procedure
+-- CREATE PROCEDURE MyFirst(in _cust_name char(50))
+-- BEGIN
+-- SELECT cust_name, cust_contact, cust_email
+-- FROM CustNew
+-- WHERE Cust_State IN ('IL', 'IN', 'MI')
+-- UNION
+-- SELECT cust_name, cust_contact, cust_email
+-- FROM CustNew
+-- WHERE cust_name = _cust_name;
+-- END
+
+call MyFirst('Toy Land');
+delimiter $$
+use `sampledb` $$
+create procedure MySecond(
+in _cust_name char(50),
+out _custnew int,
+out _customers int)
+begin
+select count(*) into _custnew from custnew where cust_name = _cust_name;
+select count(*) into _customers from customers where cust_name = _cust_name;
+end $$
+delimiter ; #한 칸 띄우기
+#in 외부에서 넣어주는 parameter
+
+call MySecond('Toy Land',@count1, @count2);
+select @count1, @count2;
+#data 있으면 update 아니면 insert
+delimiter $$
+use `sampledb` $$
+CREATE PROCEDURE insertorupdate(_cust_id char(10), _cust_name char(50))
+BEGIN
+	DECLARE tcount INTEGER;
+	SELECT Count(*) INTO tcount FROM custnew WHERE cust_id=_cust_id;
+	IF tcount != 0 THEN
+			UPDATE custnew SET cust_name=_cust_name WHERE cust_id=_cust_id;
+	ELSE
+			INSERT INTO custnew(cust_id, cust_name) VALUES (_cust_id, _cust_name);
+	END IF;
+END $$
+delimiter ;
+
+call insertorupdate('1','scott lee');
+call insertorupdate('1','david lee');
+
+select * from custnew;
+
+#trigger -> 새 창에다가 실행해야 한다.
+delimiter //
+create trigger trigger_insert_after_customers
+	after insert on customers for each row
+begin
+	insert into custnew(cust_id, cust_name)values(new.cust_id, new.cust_name);
+end;
+# -> 새로운 파일로 가야함 or trigger를 새로운 파일에 생성
+-- insert into customers(cust_id, cust_name) values ('201','Tom & Tom');
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+CREATE DEFINER=`root`@`localhost` PROCEDURE `MyFirst`(in _cust_name char(50))
+BEGIN
+	select cust_name, cust_contact, cust_email
+    from custnew
+    where cust_state in('IL','IN','MI')
+    union
+    select cust_name, cust_contact, cust_email
+    from custnew
+    where cust_name = _cust_name;
+END
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+file5
+show triggers;
+
+insert into customers(cust_id, cust_name) values ('201','Tom & Tom');
+select * from custnew;
+
+start transaction;
+
+insert into custnew(cust_id, cust_name) values ('10','Toy Land');
+insert into custnew(cust_id, cust_name) values ('11','Toy Land');
+insert into custnew(cust_id, cust_name) values ('12','Toy Land');
+
+savepoint insert1;
+
+select * from custnew;
+
+insert into custnew(cust_id, cust_name) values ('20','Toy Land');
+insert into custnew(cust_id, cust_name) values ('21','Toy Land');
+insert into custnew(cust_id, cust_name) values ('22','Toy Land');
+
+rollback to insert1;
+rollback;
+
+-- delete from custnew where cust_id = '11';
+-- delete from custnew where cust_id = '12';

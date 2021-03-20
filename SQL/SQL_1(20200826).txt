@@ -1,0 +1,76 @@
+SELECT Continent, COUNT(*) AS nation_count #Asia만 나옴 -> 이것에 관해서만 질의 결과가 나와서??
+FROM country
+where population >=1000000;
+
+SELECT Continent, COUNT(*) AS nation_count
+FROM country
+where population >=1000000
+GROUP BY Continent;
+
+SELECT Continent, COUNT(*) AS nation_count
+FROM country
+where population >=1000000
+GROUP BY Continent
+HAVING COUNT(*) > 40;
+
+use world;
+show tables;
+select * from country;
+select continent, name, population, gnp
+from country
+where population>1000000 and gnp<100000;
+select name, ifnull(indepyear,'x')
+from country
+where indepyear is null;
+select name, ifnull(indepyear,'x')
+from country
+where indepyear>=1990
+order by indepyear desc
+limit 3;
+
+select continent 대륙, name 나라이름, population 인구, gnp GNP
+from country
+where code in ('KOR','CHN','JPN');
+#LIMIT 2;
+
+select continent 대륙, name 나라이름, population 인구, gnp GNP
+from country
+where population>10000000 or GNP<100000
+order by population desc;
+
+select continent, name, population, gnp, ifnull(gnpold,'x')
+from country
+where (population>10000000 or gnp<100000)and gnpold is null;
+
+select continent, name, population, gnp, ifnull(gnpold,'x')
+from country
+where population>10000000 or gnp<100000 and gnpold is null; #띄어쓰기 주의
+
+select continent, name, population, gnp
+from country
+where not continent in ('Asia','Europe','Africa');
+
+select continent, name, population, gnp
+from country
+where continent like 'A%'
+order by 3;
+
+select continent, name, population, gnp
+from country
+where continent like 'A_____'
+order by 3;
+
+select continent, #concat -> 한글 안 먹힘
+case when continent = 'Asia' then 'No.1 Asia'
+else 'else'
+end as "ordered continent"
+from country
+order by continent;
+
+select continent, name, (population/(surfacearea*1000)) as pd
+from country
+order by pd desc, surfacearea desc;
+
+select concat(name,' (',continent,') ',population) nation
+from country
+order by name;
