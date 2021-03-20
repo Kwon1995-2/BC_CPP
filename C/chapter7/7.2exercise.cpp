@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-// constructor°¡ ¾ø´Ù.
+// constructorÂ°Â¡ Â¾Ã¸Â´Ã™.
 class A {
 	int a1;
 protected:
